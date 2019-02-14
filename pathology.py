@@ -19,10 +19,6 @@ import requests
 import argparse
 import string
 
-#def usage():
-#    print("usage: $ python pathology -d <domains,domains> -p <pathlist> -s '<success regex>' -f '<fail regex>' -x <file extension,file extension> -o <outputfile>");
-#    sys.exit()
-
 def passfail(response, success, failure):
     print(response)
 
