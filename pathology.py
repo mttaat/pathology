@@ -43,10 +43,10 @@ def methodlist():
 
 def request(method, target, path):
     r = None
-    if method == 'GET':
-        uri = string.lower(str(arguments['p'])) + '://' + target + '/' + path
-        print('Requesting ' + method + ' ' + uri)
-        r = requests.get(uri)
+    uri = string.lower(str(arguments['p'])) + '://' + target + '/' + path
+    print('Requesting ' + method + ' ' + uri)
+    requestmethod = getattr(requests, string.lower(method))
+    r = requestmethod(uri)
     return r
 
 # TODO: support all arguments
