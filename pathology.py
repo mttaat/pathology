@@ -28,12 +28,31 @@ def passfail(response, success, failure):
 
 def targetlist():
     targetlist = str(arguments['t'])
-    targets = targetlist.split(',')
+    targets = []
+
+    if string.find(targetlist, ',') == -1:
+        f = open(targetlist, 'r')
+        for line in f:
+            if string.find(line, '#') != 0:
+                targets.append(string.strip(line))
+    else:
+        targets = targetlist.split(',')
+
     return targets
 
 def pathlist():
     pathlist = str(arguments['l'])
-    paths = pathlist.split(',')
+    paths = []
+
+    if string.find(pathlist, ',') == -1:
+        f = open(pathlist, 'r')
+        for line in f:
+            if string.find(line, '#') != 0:
+                paths.append(string.strip(line))
+    else:
+        paths = pathlist.split(',')
+
+    print(paths)
     return paths
 
 def methodlist():
@@ -69,8 +88,8 @@ parser = argparse.ArgumentParser(
                 description='Modern web path fuzzer',
                 epilog='')
 
-parser.add_argument('-t', action='store', help='domain/IP list, comma-separated')
-parser.add_argument('-l', action='store', help='list to generate paths with, comma-separated', default=None)
+parser.add_argument('-t', action='store', help='domain/IP list, comma-separated (cli) or newline separated (file)')
+parser.add_argument('-l', action='store', help='list to generate paths with, comma-separated (cli) or newline-separated (file)', default=None)
 parser.add_argument('-p', action='store', help='protocol: HTTPS (default) or HTTP', default='https')
 #parser.add_argument('-l', action='store', help='list to generate paths with, comma-separated', default="pathlist.txt")
 parser.add_argument('-m', action='store', help='list of HTTP methods (GET, HEAD, etc) to use', default="GET")
