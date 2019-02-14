@@ -1,4 +1,5 @@
 # pathology
+(WORK IN PROGRESS)
 A web path fuzzer in the spirit of dirbuster with support for multiple concurrent domains, arbitrary file extensions and user-definable success/failure criteria based on response page text.
 
 Historically attackers were able to find path traversals and hidden directories on webservers by utilizing a large wordlist, concatenating each entry to the target domain and reading the response code returned by the request. 200 signified a possibly new juicy target directory and 404 or other errors signified a miss. Modern web servers and web applications tend to return 200 for many requests which would otherwise fail, and the paths used by their pages do not neccessarily reflect an actual directory on the web server but a software-defined route to a method or other non-file resource. 
