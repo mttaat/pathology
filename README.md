@@ -16,5 +16,6 @@ Both are optional and if neither is passed by the user then pathology will fall 
 
 Pathology also supports targeting of multiple domains and may read this input from a file. Scan results may be output to stdout or to a filename.
 
-Inspiration from OWASP's dirbuster and NoobieDog's Dir-Xcan - https://github.com/NoobieDog/Dir-Xcan
+Inspiration from OWASP's dirbuster - https://www.owasp.org/index.php/Category:OWASP_DirBuster_Project
+and NoobieDog's Dir-Xcan - https://github.com/NoobieDog/Dir-Xcan
 
