@@ -7,6 +7,7 @@ This project aims to provide a flexible script to aid in "fuzzing" the path aspe
 
 
 **Example invocations:**
+
     python pathology.py -t 'aol.com,yahoo.com,compuserve.com' -l ./directory-list-lowercase-2.3-small.txt -m 'GET,HEAD,OPTIONS'
     python pathology.py -t ./domains.txt -l 'admin,console,passwords,users,customers,clients,business -m 'GET,DELETE'
 
