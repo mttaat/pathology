@@ -61,7 +61,10 @@ def request(method, target, path):
     uri = string.lower(str(arguments['p'])) + '://' + target + '/' + path
     print('Requesting ' + method + ' ' + uri)
     requestmethod = getattr(requests, string.lower(method))
-    r = requestmethod(uri)
+    try:
+        r = requestmethod(uri, verify=False)
+    except(Error):
+        print("ERROR: " + error)
     return r
 
 # TODO: support all arguments
