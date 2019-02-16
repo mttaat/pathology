@@ -56,10 +56,15 @@ def methodlist():
     methods = methodlist.split(',')
     return methods
 
-def request(method, target, path):
+def protocollist():
+    protocollist = str(arguments['p'])
+    protocols = protocollist.split(',')
+    return protocols
+
+def request(proto, method, target, path):
     r = None
-    uri = string.lower(str(arguments['p'])) + '://' + target + '/' + path
-    print('Requesting ' + method + ' ' + uri)
+    uri = string.lower(proto + '://' + target + '/' + path)
+    print('==== Request' + method + ' ' + uri + "====")
     requestmethod = getattr(requests, string.lower(method))
     try:
         r = requestmethod(uri, verify=False)
@@ -74,13 +79,15 @@ def loopbody():
     paths = pathlist()
     targets = targetlist()
     methods = methodlist()
+    protocols = protocollist()
 
     # TODO: refactor for multithreading
     for t in targets:
-        for p in paths:
-            for m in methods:
-                response = request(m, t, p)
-                print response.text
+        for h in protocols:
+            for p in paths:
+                for m in methods:
+                    response = request(h, m, t, p)
+                    print response.text
 
 parser = argparse.ArgumentParser(
                 version='0.1', 
