@@ -44,12 +44,16 @@ def targetlist():
 def pathlist():
     pathlist = str(arguments['l'])
     paths = []
-
+    # TODO: percent encode unicode chars rather than strip them out
+    strip_unicode = re.compile("([^-_a-zA-Z0-9!@#%&=,/'\";:~`\$\^\*\(\)\+\[\]\.\{\}\|\?\<\>\\]+|[^\s]+)")
     if string.find(pathlist, ',') == -1:
         f = open(pathlist, 'r')
         for line in f:
             if string.find(line, '#') != 0:
-                paths.append(string.strip(line))
+                line = string.strip(line)
+                line = strip_unicode.sub('',line)
+                if line != '':
+                    paths.append(string.strip(line))
     else:
         paths = pathlist.split(',')
 
@@ -73,8 +77,10 @@ def request(proto, method, target, path):
     requestmethod = getattr(requests, string.lower(method))
     try:
         r = requestmethod(uri, verify=False)
-    except(Error):
-        print("ERROR: " + error)
+    except Error as e:
+        print("Error: " + e)
+    except SSLError as e:
+        print("SSLError: " + e)
     return r
 
 # TODO: support all arguments
