@@ -99,8 +99,11 @@ def loopbody():
                 for m in methods:
                     response = request(h, m, t, p)
                     print(response)
-                    if arguments['f'] and response and (string.count(str(response.text), str(arguments['f'])) == 0):
-                       print(response.text)
+                    if arguments['f']:
+                        if response and (string.count(str(response.text), str(arguments['f'])) == 0):
+                            print(response.text)
+                    else:
+                        print(response.text)
 
 parser = argparse.ArgumentParser(
                 version='0.1', 
