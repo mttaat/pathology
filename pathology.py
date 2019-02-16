@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Copyright (c) 2019 mttaat <mttaat@protonmail.com>. All Rights Reserved.
 # This file licensed under the GPLv3
@@ -16,6 +15,7 @@
 import sys
 import re
 import requests
+from requests import exceptions
 import argparse
 import string
 
@@ -77,10 +77,8 @@ def request(proto, method, target, path):
     requestmethod = getattr(requests, string.lower(method))
     try:
         r = requestmethod(uri, verify=False)
-    except Error as e:
-        print("Error: " + e)
-    except SSLError as e:
-        print("SSLError: " + e)
+    except exceptions.RequestException as e:
+        print("ERROR: " + e)
     return r
 
 # TODO: support all arguments
