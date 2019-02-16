@@ -64,7 +64,7 @@ def protocollist():
 def request(proto, method, target, path):
     r = None
     uri = string.lower(proto + '://' + target + '/' + path)
-    print('==== Request' + method + ' ' + uri + "====")
+    print('==== Request ' + method + ' ' + uri + " ====")
     requestmethod = getattr(requests, string.lower(method))
     try:
         r = requestmethod(uri, verify=False)
