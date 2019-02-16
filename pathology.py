@@ -26,6 +26,11 @@ def targetlist():
     targetlist = str(arguments['t'])
     targets = []
 
+# rework this logic:
+# if targetlist is a file, parse it,
+# otherwise do the split
+# (currently requires janky appending of a comma for a single domain scan)
+
     if string.find(targetlist, ',') == -1:
         f = open(targetlist, 'r')
         for line in f:
@@ -48,7 +53,7 @@ def pathlist():
     else:
         paths = pathlist.split(',')
 
-    print(paths)
+#    print(paths)
     return paths
 
 def methodlist():
@@ -87,7 +92,9 @@ def loopbody():
             for p in paths:
                 for m in methods:
                     response = request(h, m, t, p)
-                    print response.text
+                    print(response)
+                    if arguments['f'] and (string.count(str(response.text), str(arguments['f'])) == 0):
+                       print(response.text)
 
 parser = argparse.ArgumentParser(
                 version='0.1', 
