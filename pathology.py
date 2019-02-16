@@ -31,13 +31,15 @@ def targetlist():
 # otherwise do the split
 # (currently requires janky appending of a comma for a single domain scan)
 
-    if string.find(targetlist, ',') == -1:
+    if string.find(targetlist, '/') != -1:
         f = open(targetlist, 'r')
         for line in f:
             if string.find(line, '#') != 0:
                 targets.append(string.strip(line))
-    else:
+    elif string.find(targetlist, ',') != -1:
         targets = targetlist.split(',')
+    else:
+        targets = [targetlist]
 
     return targets
 
@@ -78,7 +80,7 @@ def request(proto, method, target, path):
     try:
         r = requestmethod(uri, verify=False)
     except exceptions.RequestException as e:
-        print("ERROR: " + e)
+        print("ERROR: " + str(e))
     return r
 
 # TODO: support all arguments
@@ -97,7 +99,7 @@ def loopbody():
                 for m in methods:
                     response = request(h, m, t, p)
                     print(response)
-                    if arguments['f'] and (string.count(str(response.text), str(arguments['f'])) == 0):
+                    if arguments['f'] and response and (string.count(str(response.text), str(arguments['f'])) == 0):
                        print(response.text)
 
 parser = argparse.ArgumentParser(
