@@ -80,7 +80,7 @@ def loopbody():
         for p in paths:
             for m in methods:
                 response = request(m, t, p)
-                print response
+                print response.text
 
 parser = argparse.ArgumentParser(
                 version='0.1', 
