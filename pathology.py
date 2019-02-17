@@ -97,13 +97,17 @@ def loopbody():
         for h in protocols:
             for p in paths:
                 for m in methods:
-                    response = request(h, m, t, p)
-                    print(response)
-                    if arguments['f']:
-                        if response and (string.count(str(response.text), str(arguments['f'])) == 0):
+                    try:
+                        response = request(h, m, t, p)
+                        print(response)
+                        if arguments['f']:
+                            if response and (string.count(str(response.text), str(arguments['f'])) == 0):
+                                print('+++PASSED+++')
+                                print(response.text)
+                        else:
                             print(response.text)
-                    else:
-                        print(response.text)
+                    except KeyboardInterrupt:
+                        sys.exit()
 
 parser = argparse.ArgumentParser(
                 version='0.1', 
@@ -123,9 +127,10 @@ parser.add_argument('-m', action='store', help='list of HTTP methods (GET, HEAD,
 #parser.add_argument('-c', action='store', help='cookie', default=None)
 #parser.add_argument('-u', action='store', help='user-agent', default="Mozilla/5.0")
 #parser.add_argument('-V', action='store_true', help="verbose output")
-parser.add_argument('-s', action='store', help="success regex", default=None)
 parser.add_argument('-f', action='store', help="failure regex", default=None)
+parser.add_argument('-e', action='store', help='file extensions list', default=None)
 
+              
 try:
     arguments = vars(parser.parse_args())
 
